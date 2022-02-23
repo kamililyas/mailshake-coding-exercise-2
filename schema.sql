@@ -1,0 +1,49 @@
+CREATE TABLE characters (
+    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    height INT NOT NULL,
+    mass INT DEFAULT NULL,
+    hair_color VARCHAR(100) DEFAULT NULL,
+    skin_color VARCHAR(100) DEFAULT NULL,
+    eye_color VARCHAR(100) DEFAULT NULL,
+    birth_year VARCHAR(100) DEFAULT NULL,
+    gender VARCHAR(20) DEFAULT NULL,
+    external_id BIGINT NOT NULL,
+    external_url VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE films (
+    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    opening_crawl TEXT DEFAULT NULL,
+    director VARCHAR(100) NOT NULL,
+    producer VARCHAR(100) NOT NULL,
+    release_date DATE DEFAULT NULL,
+    external_id BIGINT NOT NULL,
+    external_url VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE character_film (
+    character_film_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    character_id INT NOT NULL,
+    film_id INT NOT NULL,
+    FOREIGN KEY (character_id) REFERENCES characters(id),
+    FOREIGN KEY (film_id) REFERENCES films(id),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE paginations (
+    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    page INT NOT NULL,
+    page_size INT NOT NULL,
+    total_records INT NOT NULL,
+    initiatable_type VARCHAR(100) DEFAULT NULL,
+    batch_status ENUM('in_progress', 'completed', 'failed', 'pending'),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
